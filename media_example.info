@@ -1,0 +1,11 @@
+name = Media Example
+description = "The description of this module"
+
+; Core version (required)
+core = 7.x
+
+; Package name (see http://drupal.org/node/542202 for a list of names)
+package = Media
+
+; Module dependencies
+dependencies[] = media

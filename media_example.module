@@ -1,0 +1,42 @@
+<?php
+// $Id$
+
+/**
+ * @file
+ * This is the file description for Media Example module.
+ *
+ * In this more verbose, multi-line description, you can specify what this
+ * file does exactly. Make sure to wrap your documentation in column 78 so
+ * that the file can be displayed nicely in default-sized consoles.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function media_example_menu() {
+  $items = array();
+  
+  $items['media_example/upload'] = array(
+    'title' => 'Upload',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('media_add_upload'),
+    'access arguments' => array('administer media'),
+    'file' => 'media.pages.inc',
+    'file path' => drupal_get_path('module', 'media'),
+  );
+  
+  return $items;
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function media_example_form_media_add_upload_alter(&$form, &$form_state) {
+  if (arg(0) == 'media_example' && arg(1) == 'upload') {
+    $form['#submit'][] = 'media_example_upload_submit';
+  }
+}
+
+function media_example_upload_submit($form, &$form_state) {
+  $form_state['redirect'] = array('media/' . $form_state['values']['upload']->fid . '/edit');
+}
